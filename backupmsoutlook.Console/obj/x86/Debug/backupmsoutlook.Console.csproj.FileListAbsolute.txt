@@ -1,0 +1,8 @@
+C:\Projects\backupmsoutlook\backupmsoutlook.Console\bin\Debug\backupmsoutlook.exe.config
+C:\Projects\backupmsoutlook\backupmsoutlook.Console\bin\Debug\backupmsoutlook.exe
+C:\Projects\backupmsoutlook\backupmsoutlook.Console\bin\Debug\backupmsoutlook.pdb
+C:\Projects\backupmsoutlook\backupmsoutlook.Console\bin\Debug\backupmsoutlook.Library.dll
+C:\Projects\backupmsoutlook\backupmsoutlook.Console\bin\Debug\backupmsoutlook.Library.pdb
+C:\Projects\backupmsoutlook\backupmsoutlook.Console\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Projects\backupmsoutlook\backupmsoutlook.Console\obj\x86\Debug\backupmsoutlook.exe
+C:\Projects\backupmsoutlook\backupmsoutlook.Console\obj\x86\Debug\backupmsoutlook.pdb

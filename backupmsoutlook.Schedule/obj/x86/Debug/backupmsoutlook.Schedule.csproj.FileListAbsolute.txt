@@ -1,0 +1,15 @@
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.Schedule.exe.config
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.Schedule.exe
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.Schedule.pdb
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.exe
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.Library.dll
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.pdb
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.Library.pdb
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\obj\x86\Debug\backupmsoutlook.Schedule.FScheduler.resources
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\obj\x86\Debug\backupmsoutlook.Schedule.F_AddSchedule.resources
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\obj\x86\Debug\backupmsoutlook.Schedule.Properties.Resources.resources
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\obj\x86\Debug\ResGen.read.1.tlog
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\obj\x86\Debug\ResGen.write.1.tlog
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\obj\x86\Debug\backupmsoutlook.Schedule.exe
+C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\obj\x86\Debug\backupmsoutlook.Schedule.pdb
