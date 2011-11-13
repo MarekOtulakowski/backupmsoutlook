@@ -35,3 +35,8 @@ Task adding
 https://lh5.googleusercontent.com/-P7-wATuxGFM/Tr_At5fKIrI/AAAAAAAAAMk/M_LCkTTIwpI/s504/schedule-task.jpg
 
 If you want, running task backup hidding fill permission account
+
+= System Requirements =
+  * Windows 7 32 and 64 bit (other Windows not tested yet)
+  * Net Framework 3.5
+  * Microsoft Outlook 2007 and 2010 32 and 64 bit (other Office version not tested yet) 
