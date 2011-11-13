@@ -1,0 +1,27 @@
+#summary One-sentence summary of this page.
+
+Console program to copy all active (usage) pst files from default Microsoft Outlook to backup folder. It's stripped down and modified version of the program backupmymail.codeplex.com
+
+This program copy pst file even MS Outlook is open using program hobocopy(c) program download from [https://github.com/candera/hobocopy/downloads] website.
+In contrast to previous project backupmymail.codeplex.com, program read information about pst files only windows registry (not using Microsoft.Office.Interop.Outlook)
+Actuall version (1.0.0.0 and 1.0.0.1) tested only:
+- MS Outlook 2007 usage Windows 7 x64 (64 bit) - (mail IMAP configuration)
+- MS Outlook 2010 (32 bit) + usage Windows 7 x86 (32 bit) - (mail IMAP configuration)
+
+Info from use: backupmsoutlook.exe /?
+
+backupmsoutlook is program to copy all pst files
+from default Microsoft Outlook profile to backup folder.
+
+Write at GPL v.2 license, read here http://opensource.org/licenses/GPL-2.0
+backupmsoutlook version 1.0.0.1
+Homepage project http://backupmsoutlook.codeplex.com (this page)
+
+Usage:
+backupmsoutlook <destination folder> <path to txt log> <bool after copy shutdown computer> <bool adding timestamp to pst file>
+
+Example: backupmsoutlook c:\\backup c:\log.txt false false
+
+
+Schedulder task (application independent auxiliary) using library http://taskscheduler.codeplex.com/ in version 1.7.0.0
+To run scheduler use backupmsoutlook.Schedule.exe file
