@@ -15,7 +15,7 @@ from default Microsoft Outlook profile to backup folder.
 
 Write at GPL v.2 license, read here http://opensource.org/licenses/GPL-2.0
 backupmsoutlook version 1.0.0.3
-Homepage project [http://http://code.google.com/p/backupmsoutlook] (this page)
+Homepage project [http://code.google.com/p/backupmsoutlook] (this page)
 
 Usage:
 backupmsoutlook <destination folder> <path to txt log> <bool after copy shutdown computer> <bool adding timestamp to pst file>
