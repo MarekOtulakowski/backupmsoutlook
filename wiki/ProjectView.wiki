@@ -25,3 +25,11 @@ Example: backupmsoutlook c:\\backup c:\log.txt false false
 
 Schedulder task (application independent auxiliary) using library [http://taskscheduler.codeplex.com/] in version 1.7.0.0
 To run scheduler use backupmsoutlook.Schedule.exe file
+
+View main form
+
+https://lh5.googleusercontent.com/-ZGT8bjC-89k/Tr_AmmsLSwI/AAAAAAAAAMM/2p7DiPC12-4/s466/schedule-main.jpg
+
+Task adding
+
+https://lh5.googleusercontent.com/-P7-wATuxGFM/Tr_At5fKIrI/AAAAAAAAAMk/M_LCkTTIwpI/s504/schedule-task.jpg
