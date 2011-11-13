@@ -5,23 +5,22 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{584C20D7-C54C-4ADD-A93E-9C90AFC25992}
+AppId={{142FE211-6D24-4C9D-87B6-82E9828071E5}
 AppName=BackupMsOutlook
-AppVersion=1.0.0.2
+AppVersion=1.0.0.3
+;AppVerName=BackupMsOutlook 1.0.0.3
 AppPublisher=MarekOtulakowski
-AppPublisherURL=http://backupmsoutlook.codeplex.com/
-AppSupportURL=http://backupmsoutlook.codeplex.com/
-AppUpdatesURL=http://backupmsoutlook.codeplex.com/
-DefaultDirName=C:\Program Files\BackupMsOutlook
+AppPublisherURL=http://code.google.com/p/backupmsoutlook/
+AppSupportURL=http://code.google.com/p/backupmsoutlook/
+AppUpdatesURL=http://code.google.com/p/backupmsoutlook/
+DefaultDirName=C:\Program Files\BackupMsOutlook\BackupMsOutlook
 DefaultGroupName=BackupMsOutlook
-AllowNoIcons=yes
 LicenseFile=C:\Projects\backupmsoutlook\License.txt
 OutputDir=C:\Projects
-OutputBaseFilename=setup-backupmsoutlook-v1.0.0.2
+OutputBaseFilename=setup-backupmsoutlook-v1.0.0.3
 SetupIconFile=C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\setup\Schedule.ico
 Compression=lzma
 SolidCompression=yes
-UninstallDisplayIcon={app}\Uninstaller.ico
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -44,11 +43,10 @@ Source: "C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\setup\Uninstaller.
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\backupmsoutlook"; Filename: "{app}\backupmsoutlook.Schedule.exe"
-Name: "{group}\{cm:ProgramOnTheWeb,BackupMsMail}"; Filename: "http://backupmsoutlook.codeplex.com/"
+Name: "{group}\{cm:ProgramOnTheWeb,BackupMsOutlook}"; Filename: "http://code.google.com/p/backupmsoutlook/"
+Name: "{group}\backupmsoutlook"; Filename: "{app}\backupmsoutlook.Schedule.exe"    
 Name: "{group}\{cm:UninstallProgram,BackupMsMail}"; Filename: "{uninstallexe}"; IconFilename: "{app}\Uninstaller.ico"
 Name: "{commondesktop}\backupmsoutlook"; Filename: "{app}\backupmsoutlook.Schedule.exe"; Tasks: desktopicon
-Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\backupmsoutlook"; Filename: "{app}\backupmsoutlook.Schedule.exe"; Tasks: quicklaunchicon
 
 
 

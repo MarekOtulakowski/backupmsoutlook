@@ -121,8 +121,8 @@ namespace backupmsoutlook.Console
             System.Console.WriteLine("folder");
             System.Console.WriteLine();
             System.Console.WriteLine("Write at GLP v.2 license, read here http://opensource.org/licenses/GPL-2.0");
-            System.Console.WriteLine("backupmsoutlook version 1.0.0.1");
-            System.Console.WriteLine("Homepage project http://backupmsoutlook.codeplex.com");
+            System.Console.WriteLine("backupmsoutlook version 1.0.0.3");
+            System.Console.WriteLine("Homepage project http://code.google.com/p/backupmsoutlook/");
             System.Console.WriteLine();
         }
 

@@ -63,7 +63,7 @@ namespace backupmsoutlook.Schedule
             CB_scheduleType.Enabled = false;
             NUD_intervalSchedule.Enabled = false;
 
-            TB_taskDescription.Text = "Task copy all using pst file from Microsoft Outlook default profile\nThis task using program backupmsoutlook v.1.0.0.2";
+            TB_taskDescription.Text = "Task copy all using pst file from Microsoft Outlook default profile\nThis task using program backupmsoutlook v.1.0.0.3";
 
             NUD_hour.Value = DateTime.Now.Hour;
             NUD_minute.Value = DateTime.Now.AddMinutes(5).Minute;
