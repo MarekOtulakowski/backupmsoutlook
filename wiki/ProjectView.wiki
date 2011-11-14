@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Project view and description.
 
 Console program to copy all active (usage) pst files from default Microsoft Outlook to backup folder. It's stripped down and modified version of the program [http://backupmymail.codeplex.com]
 
