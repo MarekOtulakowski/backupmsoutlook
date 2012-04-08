@@ -23,7 +23,7 @@ namespace backupmsoutlook.Schedule
                 DialogResult dr = fad.ShowDialog();
                 if (dr == System.Windows.Forms.DialogResult.OK)
                 {
-                    if (SaveTask(fad.PathToOutputFolder, fad.PathToLogFile, fad.DescriptionTask, fad.AfterBackupShutdownComputer, fad.StartBackupDate, fad.IntervalRepeat, fad.KindOfRepeat, fad.RepeatTask, fad.FullUserName, fad.Password, fad.UsePermission, fad.AddingTimestampToPst))
+                    if (SaveTask(fad.PathToOutputFolder, fad.PathToLogFile, fad.DescriptionTask, fad.AfterBackupShutdownComputer, fad.StartBackupDate, fad.IntervalRepeat, fad.KindOfRepeat, fad.RepeatTask, fad.FullUserName, fad.Password, fad.UsePermission, fad.AddingTimestampToPst, fad.CopyMSOutlookRegistrySettings))
                     {
                         MessageBox.Show("Adding task successfull!", "Adding task", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         RefreshTasks();
@@ -38,17 +38,18 @@ namespace backupmsoutlook.Schedule
         }
 
         private static bool SaveTask(string pathToOutputFolder,
-        string pathToLogFile,
-        string description,
-        bool shutdownAfterBackup,
-        DateTime startTask,
-        int intervalCout,
-        string scheduleType,
-        bool repeatTask,
-        string fullUserName,
-        string password,
-        bool usePermission,
-        bool addingTimestampToPst)
+                                     string pathToLogFile,
+                                     string description,
+                                     bool shutdownAfterBackup,
+                                     DateTime startTask,
+                                     int intervalCout,
+                                     string scheduleType,
+                                     bool repeatTask,
+                                     string fullUserName,
+                                     string password,
+                                     bool usePermission,
+                                     bool addingTimestampToPst,
+                                     bool copyMSOutlookRegistrySettings)
         {
             bool result = false;
 
@@ -74,7 +75,8 @@ namespace backupmsoutlook.Schedule
                     "\"" + pathToOutputFolder + "\"" + " " +
                     "\"" + pathToLogFile + "\"" + " " +
                     shutdownAfterBackup + " " +
-                    addingTimestampToPst,
+                    addingTimestampToPst + " " +
+                    copyMSOutlookRegistrySettings,
                     null));
 
                     if (repeatTask)

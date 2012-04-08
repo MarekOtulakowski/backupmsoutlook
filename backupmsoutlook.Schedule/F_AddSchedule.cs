@@ -19,6 +19,7 @@ namespace backupmsoutlook.Schedule
         public string FullUserName { get; set; }
         public string Password { get; set; }
         public bool AddingTimestampToPst { get; set; }
+        public bool CopyMSOutlookRegistrySettings { get; set; }
 
         public F_AddSchedule()
         {
@@ -63,7 +64,7 @@ namespace backupmsoutlook.Schedule
             CB_scheduleType.Enabled = false;
             NUD_intervalSchedule.Enabled = false;
 
-            TB_taskDescription.Text = "Task copy all using pst file from Microsoft Outlook default profile\nThis task using program backupmsoutlook v.1.0.0.3";
+            TB_taskDescription.Text = "Task copy all using pst file from Microsoft Outlook default profile\nThis task using program backupmsoutlook v.1.1";
 
             NUD_hour.Value = DateTime.Now.Hour;
             NUD_minute.Value = DateTime.Now.AddMinutes(5).Minute;
@@ -101,6 +102,11 @@ namespace backupmsoutlook.Schedule
                 RepeatTask = true;
             else
                 RepeatTask = false;
+
+            if (CB_copyMSOutlookRegistrySettings.Checked)
+                CopyMSOutlookRegistrySettings = true;
+            else
+                CopyMSOutlookRegistrySettings = false;
 
             KindOfRepeat = CB_scheduleType.SelectedItem.ToString();
 

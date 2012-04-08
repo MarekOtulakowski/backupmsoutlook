@@ -18,8 +18,10 @@ namespace backupmsoutlook.Library
     {
         #region Variables
         private static string OutputFolder { get; set; }
-        private static string PathToLog { get; set; }
+        public static string PathToLog { get; set; }
         public static bool AddingTimestampForPstFiles { get; set; }
+        private static string PathToDefaultPst { get; set; }
+        public static bool CopyMSOutlookRegistrySettings { get; set; }
         #endregion
 
         #region PublicFunction
@@ -167,6 +169,7 @@ namespace backupmsoutlook.Library
         public static bool RunBackup()
         {
             bool result = false;
+            string uniqueSig;
 
             try
             {
@@ -188,7 +191,7 @@ namespace backupmsoutlook.Library
                     if (AddingTimestampForPstFiles)
                     {
                         //rename file adding backup date
-                        string uniqueSig = DateTime.Now.ToString();
+                        uniqueSig = DateTime.Now.ToString();
                         uniqueSig = uniqueSig.Replace(":", "-");
                         uniqueSig = uniqueSig.Replace(" ", "-");
                         uniqueSig = uniqueSig.Replace("/", "-");
@@ -198,13 +201,39 @@ namespace backupmsoutlook.Library
                         if (File.Exists(fullPath))
                         {
                             string newFileName = fileName.Substring(0, fileName.LastIndexOf("."));
-                            newFileName = String.Format("{0}_{1}.pst", newFileName, uniqueSig);
+
+                            //rename backup pst file (default - one, archive - others)
+                            if (PathToDefaultPst == hobocopyParametrs)
+                                newFileName = String.Format("{0}_{1}.pst", newFileName, "DEFAULT_" + uniqueSig);
+                            else
+                                newFileName = String.Format("{0}_{1}.pst", newFileName, "ARCHIVE_" + uniqueSig);
+
                             newFileName = String.Format("{0}\\{1}", OutputFolder, newFileName);
                             File.Move(fullPath, newFileName);
                             SaveToLog(String.Format("{0} Change file name:{1}{2} => {3}", DateTime.Now, Environment.NewLine, fullPath, newFileName));
                         }
                     }
                 });
+
+                if (CopyMSOutlookRegistrySettings)
+                {
+                    try
+                    {
+                        //rename file adding backup date
+                        uniqueSig = DateTime.Now.ToString();
+                        uniqueSig = uniqueSig.Replace(":", "-");
+                        uniqueSig = uniqueSig.Replace(" ", "-");
+                        uniqueSig = uniqueSig.Replace("/", "-");
+                        SaveRegistryOutlookSettingInFile(OutputFolder +
+                                                         "\\registryCopy" +
+                                                         uniqueSig +
+                                                         ".reg");
+                    }
+                    catch (Exception ex2)
+                    {
+                        SaveToLog("Error durring save registryCopy.reg: " + ex2.Message);
+                    }
+                }
 
                 result = true;
             }
@@ -214,6 +243,42 @@ namespace backupmsoutlook.Library
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Export registry settings include all profiles MS Outlook
+        /// </summary>
+        /// <param name="pathToRegFile">path to *.reg output file</param>
+        /// <returns>return result function, true if export is correct</returns>
+        private static bool SaveRegistryOutlookSettingInFile(string pathToRegFile)
+        {
+            try
+            {
+                string fullRegPath = "\"" + @"HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows Messaging Subsystem" + "\"";
+                string command = @"/E " + pathToRegFile + " " + fullRegPath;
+                var psiRegistry = new ProcessStartInfo();
+                psiRegistry.FileName = "regedit.exe";
+                psiRegistry.Arguments = command;
+                if (Environment.OSVersion.Version.Major >= 6)
+                {
+                    psiRegistry.Verb = "runas";
+                    psiRegistry.UseShellExecute = true;
+                }
+                else
+                {
+                    psiRegistry.UseShellExecute = true;
+                }
+                psiRegistry.CreateNoWindow = true;
+                psiRegistry.WindowStyle = ProcessWindowStyle.Hidden;
+                System.Diagnostics.Process pRegistry = Process.Start(psiRegistry);
+            }
+            catch (Exception ex)
+            {
+                SaveToLog("Copy registry setting isn't correclty!\nDetail: " + ex.Message);
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -321,6 +386,7 @@ namespace backupmsoutlook.Library
         {
             List<string> listHobocopyParametrs = new List<string>();
             List<string> listPst = GetPstPathsFromDefaultOutlookProfile();
+            PathToDefaultPst = listPst[listPst.Count - 1];
 
             string paths = string.Empty;
             foreach (string oPath in listPst)
@@ -334,6 +400,8 @@ namespace backupmsoutlook.Library
             foreach (string oCommand in listPst)
             {
                 string fullHobocopyArguments = GetFullHobocopyArguments(oCommand);
+                if (oCommand == PathToDefaultPst)
+                    PathToDefaultPst = fullHobocopyArguments;
 
                 string newName = string.Empty;
                 foreach (var item in GetFullHobocopyArguments(oCommand).ToArray())

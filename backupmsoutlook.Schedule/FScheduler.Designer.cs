@@ -94,9 +94,9 @@
             // DGV_taskBackumsoutlook
             // 
             this.DGV_taskBackumsoutlook.AllowUserToAddRows = false;
-            this.DGV_taskBackumsoutlook.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.DGV_taskBackumsoutlook.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DGV_taskBackumsoutlook.BackgroundColor = System.Drawing.Color.White;
             this.DGV_taskBackumsoutlook.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Name,
@@ -194,7 +194,8 @@
             this.Controls.Add(this.B_advancedEdit);
             this.Controls.Add(this.B_addSchedule);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Text = "backupmsoutlook scheduler v.1.0.0.3";
+            //this.Name = "FScheduler";
+            this.Text = "backupmsoutlook scheduler v.1.1";
             this.Load += new System.EventHandler(this.F_MainSchedule_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGV_taskBackumsoutlook)).EndInit();
             this.ResumeLayout(false);

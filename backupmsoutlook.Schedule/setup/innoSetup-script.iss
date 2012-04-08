@@ -7,18 +7,18 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{142FE211-6D24-4C9D-87B6-82E9828071E5}
 AppName=BackupMsOutlook
-AppVersion=1.0.0.3
-;AppVerName=BackupMsOutlook 1.0.0.3
+AppVersion=1.1
+;AppVerName=BackupMsOutlook 1.1
 AppPublisher=MarekOtulakowski
 AppPublisherURL=http://code.google.com/p/backupmsoutlook/
 AppSupportURL=http://code.google.com/p/backupmsoutlook/
 AppUpdatesURL=http://code.google.com/p/backupmsoutlook/
 DefaultDirName=C:\Program Files\BackupMsOutlook\BackupMsOutlook
 DefaultGroupName=BackupMsOutlook
-LicenseFile=C:\Projects\backupmsoutlook\License.txt
-OutputDir=C:\Projects
-OutputBaseFilename=setup-backupmsoutlook-v1.0.0.3
-SetupIconFile=C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\setup\Schedule.ico
+LicenseFile=D:\VSPROJECTS\backupmsoutlook\License.txt
+OutputDir=D:\VSPROJECTS\backupmsoutlook
+OutputBaseFilename=setup-backupmsoutlook-v1.1
+SetupIconFile=D:\VSPROJECTS\backupmsoutlook\backupmsoutlook.Schedule\setup\Schedule.ico
 Compression=lzma
 SolidCompression=yes
 
@@ -30,16 +30,16 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.Schedule.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.Schedule.exe.config"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.Library.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\Microsoft.Win32.TaskScheduler.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\HoboCopy-x64.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\HoboCopy-x86.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\HoboCopy-x86-XP.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Projects\backupmsoutlook\License.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Projects\backupmsoutlook\backupmsoutlook.Schedule\setup\Uninstaller.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\VSPROJECTS\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.Schedule.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\VSPROJECTS\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.Schedule.exe.config"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\VSPROJECTS\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\VSPROJECTS\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\backupmsoutlook.Library.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\VSPROJECTS\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\Microsoft.Win32.TaskScheduler.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\VSPROJECTS\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\HoboCopy-x64.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\VSPROJECTS\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\HoboCopy-x86.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\VSPROJECTS\backupmsoutlook\backupmsoutlook.Schedule\bin\Debug\HoboCopy-x86-XP.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\VSPROJECTS\backupmsoutlook\License.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\VSPROJECTS\backupmsoutlook\backupmsoutlook.Schedule\setup\Uninstaller.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
