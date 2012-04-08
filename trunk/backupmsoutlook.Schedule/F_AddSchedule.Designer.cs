@@ -53,6 +53,7 @@
             this.TB_fullUserName = new System.Windows.Forms.TextBox();
             this.CB_useBellowAccount = new System.Windows.Forms.CheckBox();
             this.CB_addingTimestampToPst = new System.Windows.Forms.CheckBox();
+            this.CB_copyMSOutlookRegistrySettings = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.NUD_hour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUD_minute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUD_intervalSchedule)).BeginInit();
@@ -114,7 +115,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 137);
+            this.label3.Location = new System.Drawing.Point(29, 146);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 13);
             this.label3.TabIndex = 6;
@@ -122,7 +123,7 @@
             // 
             // TB_taskDescription
             // 
-            this.TB_taskDescription.Location = new System.Drawing.Point(29, 153);
+            this.TB_taskDescription.Location = new System.Drawing.Point(29, 162);
             this.TB_taskDescription.Multiline = true;
             this.TB_taskDescription.Name = "TB_taskDescription";
             this.TB_taskDescription.Size = new System.Drawing.Size(319, 53);
@@ -130,14 +131,14 @@
             // 
             // DTP_startDate
             // 
-            this.DTP_startDate.Location = new System.Drawing.Point(32, 226);
+            this.DTP_startDate.Location = new System.Drawing.Point(32, 235);
             this.DTP_startDate.Name = "DTP_startDate";
             this.DTP_startDate.Size = new System.Drawing.Size(151, 20);
             this.DTP_startDate.TabIndex = 8;
             // 
             // NUD_hour
             // 
-            this.NUD_hour.Location = new System.Drawing.Point(212, 225);
+            this.NUD_hour.Location = new System.Drawing.Point(212, 234);
             this.NUD_hour.Maximum = new decimal(new int[] {
             23,
             0,
@@ -149,7 +150,7 @@
             // 
             // NUD_minute
             // 
-            this.NUD_minute.Location = new System.Drawing.Point(271, 225);
+            this.NUD_minute.Location = new System.Drawing.Point(271, 234);
             this.NUD_minute.Maximum = new decimal(new int[] {
             59,
             0,
@@ -167,7 +168,7 @@
             "hour(s)",
             "day(s)",
             "week(s)"});
-            this.CB_scheduleType.Location = new System.Drawing.Point(119, 262);
+            this.CB_scheduleType.Location = new System.Drawing.Point(119, 271);
             this.CB_scheduleType.Name = "CB_scheduleType";
             this.CB_scheduleType.Size = new System.Drawing.Size(121, 21);
             this.CB_scheduleType.TabIndex = 11;
@@ -175,7 +176,7 @@
             // CB_repeat
             // 
             this.CB_repeat.AutoSize = true;
-            this.CB_repeat.Location = new System.Drawing.Point(33, 264);
+            this.CB_repeat.Location = new System.Drawing.Point(33, 273);
             this.CB_repeat.Name = "CB_repeat";
             this.CB_repeat.Size = new System.Drawing.Size(61, 17);
             this.CB_repeat.TabIndex = 12;
@@ -207,7 +208,7 @@
             // CB_afterShutdownComputer
             // 
             this.CB_afterShutdownComputer.AutoSize = true;
-            this.CB_afterShutdownComputer.Location = new System.Drawing.Point(29, 111);
+            this.CB_afterShutdownComputer.Location = new System.Drawing.Point(29, 107);
             this.CB_afterShutdownComputer.Name = "CB_afterShutdownComputer";
             this.CB_afterShutdownComputer.Size = new System.Drawing.Size(167, 17);
             this.CB_afterShutdownComputer.TabIndex = 15;
@@ -216,7 +217,7 @@
             // 
             // NUD_intervalSchedule
             // 
-            this.NUD_intervalSchedule.Location = new System.Drawing.Point(272, 262);
+            this.NUD_intervalSchedule.Location = new System.Drawing.Point(272, 271);
             this.NUD_intervalSchedule.Maximum = new decimal(new int[] {
             99,
             0,
@@ -297,18 +298,33 @@
             // CB_addingTimestampToPst
             // 
             this.CB_addingTimestampToPst.AutoSize = true;
-            this.CB_addingTimestampToPst.Location = new System.Drawing.Point(212, 111);
+            this.CB_addingTimestampToPst.Checked = true;
+            this.CB_addingTimestampToPst.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CB_addingTimestampToPst.Location = new System.Drawing.Point(212, 107);
             this.CB_addingTimestampToPst.Name = "CB_addingTimestampToPst";
             this.CB_addingTimestampToPst.Size = new System.Drawing.Size(201, 17);
             this.CB_addingTimestampToPst.TabIndex = 18;
             this.CB_addingTimestampToPst.Text = "Adding timestamp for coped pst file(s)";
             this.CB_addingTimestampToPst.UseVisualStyleBackColor = true;
             // 
+            // CB_copyMSOutlookRegistrySettings
+            // 
+            this.CB_copyMSOutlookRegistrySettings.AutoSize = true;
+            this.CB_copyMSOutlookRegistrySettings.Checked = true;
+            this.CB_copyMSOutlookRegistrySettings.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CB_copyMSOutlookRegistrySettings.Location = new System.Drawing.Point(29, 126);
+            this.CB_copyMSOutlookRegistrySettings.Name = "CB_copyMSOutlookRegistrySettings";
+            this.CB_copyMSOutlookRegistrySettings.Size = new System.Drawing.Size(184, 17);
+            this.CB_copyMSOutlookRegistrySettings.TabIndex = 19;
+            this.CB_copyMSOutlookRegistrySettings.Text = "Copy MS Outlook registry settings";
+            this.CB_copyMSOutlookRegistrySettings.UseVisualStyleBackColor = true;
+            // 
             // F_AddSchedule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(453, 463);
+            this.Controls.Add(this.CB_copyMSOutlookRegistrySettings);
             this.Controls.Add(this.CB_addingTimestampToPst);
             this.Controls.Add(this.GB_permission);
             this.Controls.Add(this.NUD_intervalSchedule);
@@ -371,5 +387,6 @@
         private System.Windows.Forms.TextBox TB_fullUserName;
         private System.Windows.Forms.CheckBox CB_useBellowAccount;
         private System.Windows.Forms.CheckBox CB_addingTimestampToPst;
+        private System.Windows.Forms.CheckBox CB_copyMSOutlookRegistrySettings;
     }
 }

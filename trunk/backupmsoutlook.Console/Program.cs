@@ -36,9 +36,10 @@ namespace backupmsoutlook.Console
             string pathToLog = string.Empty;
             bool afterBackupShutdownComputer = false;
             bool addingTimestampToPstFiles = false;
+            bool copyMSOutlookRegistrySettings = false;
             #endregion
 
-            if (args.Length == 4)
+            if (args.Length == 5)
             {
                 try
                 {
@@ -52,6 +53,7 @@ namespace backupmsoutlook.Console
                     pathToLog = args[1];
                     afterBackupShutdownComputer = bool.Parse(args[2]);
                     addingTimestampToPstFiles = bool.Parse(args[3]);
+                    copyMSOutlookRegistrySettings = bool.Parse(args[4]);
                 }
                 catch
                 {
@@ -88,6 +90,8 @@ namespace backupmsoutlook.Console
 
             DateTime startDate = DateTime.Now;
             System.Console.WriteLine(String.Format("{0} -> Start backup", startDate));
+            Manager.PathToLog = pathToLog;
+            Manager.CopyMSOutlookRegistrySettings = copyMSOutlookRegistrySettings;
             Manager.SaveToLog("");
             Manager.SaveToLog(String.Format("{0} -> Start backup", startDate));
             if (GetResult(pathToOutputFolder, pathToLog, addingTimestampToPstFiles))
@@ -137,6 +141,7 @@ namespace backupmsoutlook.Console
             System.Console.WriteLine("                <path to txt log>");
             System.Console.WriteLine("                <bool after copy shutdown computer>");
             System.Console.WriteLine("                <bool adding timestamp to pst file>");
+            System.Console.WriteLine("                <bool copy MS Outlook registry settings>");
             System.Console.WriteLine();
             System.Console.WriteLine("Example: backupmsoutlook C:\\backup C:\\log.txt false");
         }
