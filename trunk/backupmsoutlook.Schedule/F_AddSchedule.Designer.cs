@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_AddSchedule));
             this.label1 = new System.Windows.Forms.Label();
             this.B_browseOutputFolder = new System.Windows.Forms.Button();
@@ -54,10 +55,18 @@
             this.CB_useBellowAccount = new System.Windows.Forms.CheckBox();
             this.CB_addingTimestampToPst = new System.Windows.Forms.CheckBox();
             this.CB_copyMSOutlookRegistrySettings = new System.Windows.Forms.CheckBox();
+            this.ER_pathToOutputFolder = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ER_pathToLogFile = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ER_fullUserName = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ER_password = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.NUD_hour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUD_minute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUD_intervalSchedule)).BeginInit();
             this.GB_permission.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ER_pathToOutputFolder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ER_pathToLogFile)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ER_fullUserName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ER_password)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -85,6 +94,7 @@
             this.TB_pathToOutputFolder.Name = "TB_pathToOutputFolder";
             this.TB_pathToOutputFolder.Size = new System.Drawing.Size(319, 20);
             this.TB_pathToOutputFolder.TabIndex = 2;
+            this.TB_pathToOutputFolder.Validating += new System.ComponentModel.CancelEventHandler(this.TB_pathToOutputFolder_Validating);
             // 
             // TB_pathToLog
             // 
@@ -92,6 +102,7 @@
             this.TB_pathToLog.Name = "TB_pathToLog";
             this.TB_pathToLog.Size = new System.Drawing.Size(319, 20);
             this.TB_pathToLog.TabIndex = 5;
+            this.TB_pathToLog.Validating += new System.ComponentModel.CancelEventHandler(this.TB_pathToLog_Validating);
             // 
             // B_browseLogFile
             // 
@@ -186,7 +197,6 @@
             // 
             // B_saveSchedule
             // 
-            this.B_saveSchedule.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.B_saveSchedule.Location = new System.Drawing.Point(29, 428);
             this.B_saveSchedule.Name = "B_saveSchedule";
             this.B_saveSchedule.Size = new System.Drawing.Size(158, 23);
@@ -276,6 +286,7 @@
             this.TB_password.PasswordChar = '*';
             this.TB_password.Size = new System.Drawing.Size(207, 20);
             this.TB_password.TabIndex = 19;
+            this.TB_password.Validating += new System.ComponentModel.CancelEventHandler(this.TB_password_Validating);
             // 
             // TB_fullUserName
             // 
@@ -283,10 +294,14 @@
             this.TB_fullUserName.Name = "TB_fullUserName";
             this.TB_fullUserName.Size = new System.Drawing.Size(207, 20);
             this.TB_fullUserName.TabIndex = 18;
+            this.TB_fullUserName.Validating += new System.ComponentModel.CancelEventHandler(this.TB_fullUserName_Validating);
             // 
             // CB_useBellowAccount
             // 
             this.CB_useBellowAccount.AutoSize = true;
+            this.CB_useBellowAccount.Checked = true;
+            this.CB_useBellowAccount.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CB_useBellowAccount.Enabled = false;
             this.CB_useBellowAccount.Location = new System.Drawing.Point(13, 30);
             this.CB_useBellowAccount.Name = "CB_useBellowAccount";
             this.CB_useBellowAccount.Size = new System.Drawing.Size(120, 17);
@@ -318,6 +333,24 @@
             this.CB_copyMSOutlookRegistrySettings.TabIndex = 19;
             this.CB_copyMSOutlookRegistrySettings.Text = "Copy MS Outlook registry settings";
             this.CB_copyMSOutlookRegistrySettings.UseVisualStyleBackColor = true;
+            // 
+            // ER_pathToOutputFolder
+            // 
+            this.ER_pathToOutputFolder.ContainerControl = this;
+            this.ER_pathToOutputFolder.RightToLeft = true;
+            // 
+            // ER_pathToLogFile
+            // 
+            this.ER_pathToLogFile.ContainerControl = this;
+            this.ER_pathToLogFile.RightToLeft = true;
+            // 
+            // ER_fullUserName
+            // 
+            this.ER_fullUserName.ContainerControl = this;
+            // 
+            // ER_password
+            // 
+            this.ER_password.ContainerControl = this;
             // 
             // F_AddSchedule
             // 
@@ -356,6 +389,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.NUD_intervalSchedule)).EndInit();
             this.GB_permission.ResumeLayout(false);
             this.GB_permission.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ER_pathToOutputFolder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ER_pathToLogFile)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ER_fullUserName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ER_password)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -388,5 +425,9 @@
         private System.Windows.Forms.CheckBox CB_useBellowAccount;
         private System.Windows.Forms.CheckBox CB_addingTimestampToPst;
         private System.Windows.Forms.CheckBox CB_copyMSOutlookRegistrySettings;
+        private System.Windows.Forms.ErrorProvider ER_pathToOutputFolder;
+        private System.Windows.Forms.ErrorProvider ER_pathToLogFile;
+        private System.Windows.Forms.ErrorProvider ER_fullUserName;
+        private System.Windows.Forms.ErrorProvider ER_password;
     }
 }

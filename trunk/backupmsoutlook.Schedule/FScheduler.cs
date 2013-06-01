@@ -72,12 +72,12 @@ namespace backupmsoutlook.Schedule
 
                     //add action
                     td.Actions.Add(new ExecAction(pathToProgram,
-                    "\"" + pathToOutputFolder + "\"" + " " +
-                    "\"" + pathToLogFile + "\"" + " " +
-                    shutdownAfterBackup + " " +
-                    addingTimestampToPst + " " +
-                    copyMSOutlookRegistrySettings,
-                    null));
+                        "\"" + pathToOutputFolder + "\"" + " " +
+                        "\"" + pathToLogFile + "\"" + " " +
+                        shutdownAfterBackup + " " +
+                        addingTimestampToPst + " " +
+                        copyMSOutlookRegistrySettings,
+                        null));
 
                     if (repeatTask)
                     {
@@ -125,13 +125,18 @@ namespace backupmsoutlook.Schedule
                     td.Settings.Enabled = true;
                     td.Settings.RunOnlyIfIdle = false;
                     td.Settings.WakeToRun = false;
+                    td.Settings.ExecutionTimeLimit = new TimeSpan(12, 0, 0); //12 hours limit execution
                     td.RegistrationInfo.Date = DateTime.Now;
+                    td.Settings.DeleteExpiredTaskAfter = new TimeSpan(30 * 24, 0, 0); //delete task
+                                                                      //from scheduler
+                                                                      //after 30 days
 
                     //author
                     td.RegistrationInfo.Author = td.Principal.UserId;
 
                     //register task
                     string taskName = Get_NextTaskName();
+                    td.RegistrationInfo.Documentation = "add task name = " + taskName;
 
                     if (usePermission)
                     {

@@ -177,40 +177,55 @@ namespace backupmsoutlook.Library
 
                 listParametrs.ForEach(hobocopyParametrs =>
                 {
-                    ProcessStartInfo psi = new ProcessStartInfo();
-                    if (Environment.OSVersion.Version.Major >= 6)
-                        psi.Verb = "runas";
-                    psi.UseShellExecute = true;
-                    psi.WindowStyle = ProcessWindowStyle.Hidden;
-                    psi.CreateNoWindow = true;
-                    psi.FileName = HobocopyPath;
-                    psi.Arguments = hobocopyParametrs;
-                    using (Process p = Process.Start(psi))
-                        p.WaitForExit();
-                    SaveToLog(string.Format("{0} Backup pst file use command: {1}{2} {3}", DateTime.Now, Environment.NewLine, HobocopyPath, hobocopyParametrs));
+                    try
+                    {
+                        ProcessStartInfo psi = new ProcessStartInfo();
+                        if (Environment.OSVersion.Version.Major >= 6)
+                            psi.Verb = "runas";
+                        psi.UseShellExecute = true;
+                        psi.WindowStyle = ProcessWindowStyle.Hidden;
+                        psi.CreateNoWindow = true;
+                        psi.FileName = HobocopyPath;
+                        psi.Arguments = hobocopyParametrs;
+                        using (Process p = Process.Start(psi))
+                            p.WaitForExit();
+                        SaveToLog(string.Format("{0} Backup pst file use command: {1}{2} {3}", DateTime.Now, Environment.NewLine, HobocopyPath, hobocopyParametrs));
+                    }
+                    catch (Exception e2)
+                    {
+                        SaveToLog(String.Format("Error durring backup pst file used command {0} {1}\nDetail:\n{2}" + HobocopyPath, hobocopyParametrs, e2.Message));
+                    }
+
                     if (AddingTimestampForPstFiles)
                     {
-                        //rename file adding backup date
-                        uniqueSig = DateTime.Now.ToString();
-                        uniqueSig = uniqueSig.Replace(":", "-");
-                        uniqueSig = uniqueSig.Replace(" ", "-");
-                        uniqueSig = uniqueSig.Replace("/", "-");
-                        string fileName = hobocopyParametrs.Substring(0, hobocopyParametrs.Length - 1);
-                        fileName = fileName.Substring(fileName.LastIndexOf("\"") + 1, fileName.Length - fileName.LastIndexOf("\"") - 1);
-                        string fullPath = String.Format("{0}\\{1}", OutputFolder, fileName);
-                        if (File.Exists(fullPath))
+                        try
                         {
-                            string newFileName = fileName.Substring(0, fileName.LastIndexOf("."));
+                            //rename file adding backup date
+                            uniqueSig = DateTime.Now.ToString();
+                            uniqueSig = uniqueSig.Replace(":", "-");
+                            uniqueSig = uniqueSig.Replace(" ", "-");
+                            uniqueSig = uniqueSig.Replace("/", "-");
+                            string fileName = hobocopyParametrs.Substring(0, hobocopyParametrs.Length - 1);
+                            fileName = fileName.Substring(fileName.LastIndexOf("\"") + 1, fileName.Length - fileName.LastIndexOf("\"") - 1);
+                            string fullPath = String.Format("{0}\\{1}", OutputFolder, fileName);
+                            if (File.Exists(fullPath))
+                            {
+                                string newFileName = fileName.Substring(0, fileName.LastIndexOf("."));
 
-                            //rename backup pst file (default - one, archive - others)
-                            if (PathToDefaultPst == hobocopyParametrs)
-                                newFileName = String.Format("{0}_{1}.pst", newFileName, "DEFAULT_" + uniqueSig);
-                            else
-                                newFileName = String.Format("{0}_{1}.pst", newFileName, "ARCHIVE_" + uniqueSig);
+                                //rename backup pst file (default - one, archive - others)
+                                if (PathToDefaultPst == hobocopyParametrs)
+                                    newFileName = String.Format("{0}_{1}.pst", newFileName, "DEFAULT_" + uniqueSig);
+                                else
+                                    newFileName = String.Format("{0}_{1}.pst", newFileName, "ARCHIVE_" + uniqueSig);
 
-                            newFileName = String.Format("{0}\\{1}", OutputFolder, newFileName);
-                            File.Move(fullPath, newFileName);
-                            SaveToLog(String.Format("{0} Change file name:{1}{2} => {3}", DateTime.Now, Environment.NewLine, fullPath, newFileName));
+                                newFileName = String.Format("{0}\\{1}", OutputFolder, newFileName);
+                                File.Move(fullPath, newFileName);
+                                SaveToLog(String.Format("{0} Change file name:{1}{2} => {3}", DateTime.Now, Environment.NewLine, fullPath, newFileName));
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            SaveToLog("Error durring adding timestamp for Pst files: " + e.Message);
                         }
                     }
                 });
@@ -386,7 +401,14 @@ namespace backupmsoutlook.Library
         {
             List<string> listHobocopyParametrs = new List<string>();
             List<string> listPst = GetPstPathsFromDefaultOutlookProfile();
-            PathToDefaultPst = listPst[listPst.Count - 1];
+
+            if (listPst.Count > 1)
+                PathToDefaultPst = listPst[listPst.Count - 1];
+            else
+            {
+                SaveToLog(String.Format("{0} List Pst files to backup is empthy, nothing to backup", DateTime.Now));
+                return listHobocopyParametrs;
+            }
 
             string paths = string.Empty;
             foreach (string oPath in listPst)

@@ -21,8 +21,8 @@ namespace backupmsoutlook.Console
         private static bool GetResult(string pathToOutputFolder, string pathToLog, bool addingTimestampToPstFiles)
         {
             return Manager.Initialize(pathToOutputFolder,
-            pathToLog,
-            addingTimestampToPstFiles);
+                pathToLog,
+                addingTimestampToPstFiles);
         }
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace backupmsoutlook.Console
             System.Console.WriteLine("from default Microsoft Outlook profile to backup");
             System.Console.WriteLine("folder");
             System.Console.WriteLine();
-            System.Console.WriteLine("Write at GLP v.2 license, read here http://opensource.org/licenses/GPL-2.0");
-            System.Console.WriteLine("backupmsoutlook version 1.0.0.3");
+            System.Console.WriteLine("Write at GPL v.2 license, read here http://opensource.org/licenses/GPL-2.0");
+            System.Console.WriteLine("backupmsoutlook version 1.0.2");
             System.Console.WriteLine("Homepage project http://code.google.com/p/backupmsoutlook/");
             System.Console.WriteLine();
         }
