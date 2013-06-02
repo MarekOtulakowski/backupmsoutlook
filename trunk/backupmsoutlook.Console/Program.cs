@@ -110,7 +110,7 @@ namespace backupmsoutlook.Console
                 }
                 catch (Exception ex)
                 {
-                    Manager.SaveToLog(String.Format("Error shutdown windows\nDetail:\n{0}", ex.Message), ESaveLogCategory.ERROR);
+                    Manager.SaveToLog(String.Format("Error shutdown windows Detail: {0}", ex.Message), ESaveLogCategory.ERROR);
                 }
             }
         }

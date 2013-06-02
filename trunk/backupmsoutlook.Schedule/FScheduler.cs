@@ -234,6 +234,7 @@ namespace backupmsoutlook.Schedule
                                 actions = actions.Replace("\t", " -> ");
                             string[] row = new string[] { t.Name, t.State.ToString(), actions, t.NextRunTime.ToString(), lastRun, "0x" + t.LastTaskResult, td.RegistrationInfo.Author, td.RegistrationInfo.Date.ToString() };
                             DGV_taskBackumsoutlook.Rows.Add(row);
+                            DGV_taskBackumsoutlook.Rows[DGV_taskBackumsoutlook.Rows.Count - 1].Selected = true;
                         }
                     }
                 }
@@ -277,7 +278,7 @@ namespace backupmsoutlook.Schedule
                                     {
                                         taskFolder.DeleteTask(taskName);
                                         RefreshTasks();
-                                        MessageBox.Show(String.Format("Successfull delete task -> {0}", taskName), "Delete task", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        //MessageBox.Show(String.Format("Successfull delete task -> {0}", taskName), "Delete task", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     }
                                     catch (Exception ex)
                                     {

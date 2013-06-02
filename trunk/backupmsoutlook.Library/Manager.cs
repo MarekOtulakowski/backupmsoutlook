@@ -195,7 +195,7 @@ namespace backupmsoutlook.Library
             }
             catch (Exception e3)
             {
-                SaveToLog(String.Format("Error close hobocopy different running process\nDetail\n{0}", e3.Message), ESaveLogCategory.WARNING);
+                SaveToLog(String.Format("Error close hobocopy different running process Detail: {0}", e3.Message), ESaveLogCategory.WARNING);
             }
 
             try
@@ -220,7 +220,7 @@ namespace backupmsoutlook.Library
                     }
                     catch (Exception e2)
                     {
-                        SaveToLog(String.Format("Error durring backup pst file used command {0} {1}\nDetail:\n{2}", HobocopyPath, hobocopyParametrs, e2.Message), ESaveLogCategory.ERROR);
+                        SaveToLog(String.Format("Error durring backup pst file used command {0} {1} Detail: {2}", HobocopyPath, hobocopyParametrs, e2.Message), ESaveLogCategory.ERROR);
                     }
 
                     if (AddingTimestampForPstFiles)
@@ -247,12 +247,12 @@ namespace backupmsoutlook.Library
 
                                 newFileName = String.Format("{0}\\{1}", OutputFolder, newFileName);
                                 File.Move(fullPath, newFileName);
-                                SaveToLog(String.Format("Change file name:{0}{1} => {2}", Environment.NewLine, fullPath, newFileName), ESaveLogCategory.INFO);
+                                SaveToLog(String.Format("Change file name:{0}{1} => {2}", Environment.NewLine, "        " + fullPath, newFileName), ESaveLogCategory.INFO);
                             }
                         }
                         catch (Exception e)
                         {
-                            SaveToLog(String.Format("Error durring adding timestamp for Pst files\nDetail:\n{0}", e.Message), ESaveLogCategory.ERROR);
+                            SaveToLog(String.Format("Error durring adding timestamp for Pst files Detail: {0}", e.Message), ESaveLogCategory.ERROR);
                         }
                     }
                 });
@@ -273,7 +273,7 @@ namespace backupmsoutlook.Library
                     }
                     catch (Exception ex2)
                     {
-                        SaveToLog(String.Format("Error durring save registryCopy.reg\nDetail:\n{0}", ex2.Message), ESaveLogCategory.ERROR);
+                        SaveToLog(String.Format("Error durring save registryCopy.reg Detail: {0}", ex2.Message), ESaveLogCategory.ERROR);
                     }
                 }
 
@@ -281,7 +281,7 @@ namespace backupmsoutlook.Library
             }
             catch (Exception ex)
             {
-                SaveToLog(String.Format("Error durring run backup\nDetail:\n{0}",  ex.Message), ESaveLogCategory.ERROR);
+                SaveToLog(String.Format("Error durring run backup Detail: {0}",  ex.Message), ESaveLogCategory.ERROR);
             }
 
             return result;
@@ -316,7 +316,7 @@ namespace backupmsoutlook.Library
             }
             catch (Exception ex)
             {
-                SaveToLog(String.Format("Copy registry setting isn't correclty!\nDetail:\n{0}", ex.Message), ESaveLogCategory.ERROR);
+                SaveToLog(String.Format("Copy registry setting isn't correclty! Detail: {0}", ex.Message), ESaveLogCategory.ERROR);
                 return false;
             }
 
@@ -463,7 +463,7 @@ namespace backupmsoutlook.Library
             string paths = string.Empty;
             foreach (string oPath in listPst)
                 if (oPath != listPst[listPst.Count - 1])
-                    paths += oPath + Environment.NewLine;
+                    paths += oPath + Environment.NewLine + "        ";
                 else
                     paths += oPath;
 

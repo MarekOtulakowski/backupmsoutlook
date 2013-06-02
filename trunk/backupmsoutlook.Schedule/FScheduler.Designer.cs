@@ -111,6 +111,7 @@
             this.DGV_taskBackumsoutlook.Location = new System.Drawing.Point(12, 12);
             this.DGV_taskBackumsoutlook.MultiSelect = false;
             this.DGV_taskBackumsoutlook.Name = "DGV_taskBackumsoutlook";
+            this.DGV_taskBackumsoutlook.RowHeadersVisible = false;
             this.DGV_taskBackumsoutlook.Size = new System.Drawing.Size(304, 198);
             this.DGV_taskBackumsoutlook.TabIndex = 6;
             this.DGV_taskBackumsoutlook.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_taskBackumsoutlook_CellClick);
