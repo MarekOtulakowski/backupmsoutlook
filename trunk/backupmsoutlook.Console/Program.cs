@@ -92,13 +92,13 @@ namespace backupmsoutlook.Console
             System.Console.WriteLine(String.Format("{0} -> Start backup", startDate));
             Manager.PathToLog = pathToLog;
             Manager.CopyMSOutlookRegistrySettings = copyMSOutlookRegistrySettings;
-            Manager.SaveToLog("");
-            Manager.SaveToLog(String.Format("{0} -> Start backup", startDate));
+            Manager.SaveSeparateLineToLog(); //to visible separate current backup task in log
+            Manager.SaveToLog("Start backup", ESaveLogCategory.INFO);
             if (GetResult(pathToOutputFolder, pathToLog, addingTimestampToPstFiles))
                 Manager.RunBackup();
 
             DateTime stopDate = DateTime.Now;
-            Manager.SaveToLog(String.Format("{0} -> Close backup, all time is = {1}", stopDate, stopDate - startDate));
+            Manager.SaveToLog(String.Format("Close backup, all time is = {0}", stopDate - startDate), ESaveLogCategory.INFO);
             System.Console.WriteLine(String.Format("{0} -> Close backup, all time is = {1}", stopDate, stopDate - startDate));
 
             if (afterBackupShutdownComputer)
@@ -110,7 +110,7 @@ namespace backupmsoutlook.Console
                 }
                 catch (Exception ex)
                 {
-                    Manager.SaveToLog(String.Format("{0} -> Error shutdown windows {1}", DateTime.Now, ex.Message));
+                    Manager.SaveToLog(String.Format("Error shutdown windows\nDetail:\n{0}", ex.Message), ESaveLogCategory.ERROR);
                 }
             }
         }
@@ -125,7 +125,7 @@ namespace backupmsoutlook.Console
             System.Console.WriteLine("folder");
             System.Console.WriteLine();
             System.Console.WriteLine("Write at GPL v.2 license, read here http://opensource.org/licenses/GPL-2.0");
-            System.Console.WriteLine("backupmsoutlook version 1.0.2");
+            System.Console.WriteLine("backupmsoutlook version 1.2");
             System.Console.WriteLine("Homepage project http://code.google.com/p/backupmsoutlook/");
             System.Console.WriteLine();
         }
