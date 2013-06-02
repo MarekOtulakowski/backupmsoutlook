@@ -98,7 +98,7 @@ namespace backupmsoutlook.Console
                 Manager.RunBackup();
 
             DateTime stopDate = DateTime.Now;
-            Manager.SaveToLog(String.Format("Close backup, all time is = {0}", stopDate - startDate), ESaveLogCategory.INFO);
+            Manager.SaveToLog(String.Format("Stop backup, all time is = {0}", stopDate - startDate), ESaveLogCategory.INFO);
             System.Console.WriteLine(String.Format("{0} -> Close backup, all time is = {1}", stopDate, stopDate - startDate));
 
             if (afterBackupShutdownComputer)
