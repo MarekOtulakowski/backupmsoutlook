@@ -66,7 +66,7 @@ namespace backupmsoutlook.Schedule
             CB_scheduleType.Enabled = false;
             NUD_intervalSchedule.Enabled = false;
 
-            TB_taskDescription.Text = "Task copy all using pst file from Microsoft Outlook default profile\nThis task using program backupmsoutlook v.1.0.2";
+            TB_taskDescription.Text = "Task copy all using pst file from Microsoft Outlook default profile\nThis task using program backupmsoutlook v.1.2";
 
             NUD_hour.Value = DateTime.Now.Hour;
             NUD_minute.Value = DateTime.Now.AddMinutes(5).Minute;
@@ -110,10 +110,10 @@ namespace backupmsoutlook.Schedule
                     validateResult = false;
             }
 
-            if (validateResult)
-                B_saveSchedule.DialogResult = DialogResult.OK;
-            else
+            if (!validateResult)
             {
+                B_saveSchedule.DialogResult = DialogResult.None;
+                this.DialogResult = DialogResult.None;
                 MessageBox.Show("Please fill in all text fields!",
                                 "Adding new task",
                                 MessageBoxButtons.OK,
@@ -159,6 +159,21 @@ namespace backupmsoutlook.Schedule
                 AddingTimestampToPst = true;
             else
                 AddingTimestampToPst = false;
+
+            B_saveSchedule.DialogResult = DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+            //B_saveSchedule_Click(B_saveSchedule, EventArgs.Empty);
+
+            //if (PathToOutputFolder != TB_pathToOutputFolder.Text)
+            //{
+            //    B_saveSchedule_Click(B_saveSchedule, EventArgs.Empty);                
+            //}
+            //else
+            //{
+            //    this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            //    this.Close();
+            //}
         }
 
         private void CB_useBellowAccount_CheckedChanged(object sender, EventArgs e)

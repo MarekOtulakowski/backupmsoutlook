@@ -197,6 +197,7 @@
             // 
             // B_saveSchedule
             // 
+            this.B_saveSchedule.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.B_saveSchedule.Location = new System.Drawing.Point(29, 428);
             this.B_saveSchedule.Name = "B_saveSchedule";
             this.B_saveSchedule.Size = new System.Drawing.Size(158, 23);

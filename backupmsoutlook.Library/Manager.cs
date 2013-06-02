@@ -156,7 +156,7 @@ namespace backupmsoutlook.Library
             }
             catch (Exception ex)
             {
-                SaveToLog("Error durring read pst file - Outlook 2007 or newest: " + ex.Message);
+                SaveToLog(String.Format("Error durring read pst file - Outlook 2007 or newest\nDetail:\n{0}", ex.Message), ESaveLogCategory.ERROR);
             }
 
             return listToPst;
@@ -170,6 +170,33 @@ namespace backupmsoutlook.Library
         {
             bool result = false;
             string uniqueSig;
+
+            //close hobocopy different process
+            try
+            {
+                Process[] processlist = Process.GetProcesses();
+                List<int> listHobocopyProcessId = new List<int>();
+                foreach(Process theprocess in processlist)
+                {
+                    if (theprocess.ProcessName.ToLower().Contains("hobocopy"))
+                    {
+                        listHobocopyProcessId.Add(theprocess.Id);
+                    }
+                }
+                while (listHobocopyProcessId.Count > 0)
+                {
+                    Process process = Process.GetProcessById(listHobocopyProcessId[0]);                    
+                    int idProcess = process.Id;
+                    string nameProcess = process.ProcessName;
+                    process.Kill();
+                    listHobocopyProcessId.Remove(listHobocopyProcessId[0]);
+                    SaveToLog(String.Format("Force close process id = {0}, name = {1}", idProcess, nameProcess), ESaveLogCategory.WARNING);
+                }
+            }
+            catch (Exception e3)
+            {
+                SaveToLog(String.Format("Error close hobocopy different running process\nDetail\n{0}", e3.Message), ESaveLogCategory.WARNING);
+            }
 
             try
             {
@@ -189,11 +216,11 @@ namespace backupmsoutlook.Library
                         psi.Arguments = hobocopyParametrs;
                         using (Process p = Process.Start(psi))
                             p.WaitForExit();
-                        SaveToLog(string.Format("{0} Backup pst file use command: {1}{2} {3}", DateTime.Now, Environment.NewLine, HobocopyPath, hobocopyParametrs));
+                        SaveToLog(string.Format("Backup pst file use command: {0}{1} {2}", Environment.NewLine, "        " + HobocopyPath, hobocopyParametrs), ESaveLogCategory.INFO);
                     }
                     catch (Exception e2)
                     {
-                        SaveToLog(String.Format("Error durring backup pst file used command {0} {1}\nDetail:\n{2}" + HobocopyPath, hobocopyParametrs, e2.Message));
+                        SaveToLog(String.Format("Error durring backup pst file used command {0} {1}\nDetail:\n{2}", HobocopyPath, hobocopyParametrs, e2.Message), ESaveLogCategory.ERROR);
                     }
 
                     if (AddingTimestampForPstFiles)
@@ -220,12 +247,12 @@ namespace backupmsoutlook.Library
 
                                 newFileName = String.Format("{0}\\{1}", OutputFolder, newFileName);
                                 File.Move(fullPath, newFileName);
-                                SaveToLog(String.Format("{0} Change file name:{1}{2} => {3}", DateTime.Now, Environment.NewLine, fullPath, newFileName));
+                                SaveToLog(String.Format("Change file name:{0}{1} => {2}", Environment.NewLine, fullPath, newFileName), ESaveLogCategory.INFO);
                             }
                         }
                         catch (Exception e)
                         {
-                            SaveToLog("Error durring adding timestamp for Pst files: " + e.Message);
+                            SaveToLog(String.Format("Error durring adding timestamp for Pst files\nDetail:\n{0}", e.Message), ESaveLogCategory.ERROR);
                         }
                     }
                 });
@@ -246,7 +273,7 @@ namespace backupmsoutlook.Library
                     }
                     catch (Exception ex2)
                     {
-                        SaveToLog("Error durring save registryCopy.reg: " + ex2.Message);
+                        SaveToLog(String.Format("Error durring save registryCopy.reg\nDetail:\n{0}", ex2.Message), ESaveLogCategory.ERROR);
                     }
                 }
 
@@ -254,7 +281,7 @@ namespace backupmsoutlook.Library
             }
             catch (Exception ex)
             {
-                SaveToLog("Error durring run backup: " + ex.Message);
+                SaveToLog(String.Format("Error durring run backup\nDetail:\n{0}",  ex.Message), ESaveLogCategory.ERROR);
             }
 
             return result;
@@ -289,7 +316,7 @@ namespace backupmsoutlook.Library
             }
             catch (Exception ex)
             {
-                SaveToLog("Copy registry setting isn't correclty!\nDetail: " + ex.Message);
+                SaveToLog(String.Format("Copy registry setting isn't correclty!\nDetail:\n{0}", ex.Message), ESaveLogCategory.ERROR);
                 return false;
             }
 
@@ -297,16 +324,34 @@ namespace backupmsoutlook.Library
         }
 
         /// <summary>
-        /// Save information to log
+        /// Save empty line to log
         /// </summary>
-        /// <param name="message"></param>
-        public static void SaveToLog(string message)
+        public static void SaveSeparateLineToLog()
         {
             StreamWriter log = !File.Exists(PathToLog) ? new StreamWriter(PathToLog) : File.AppendText(PathToLog);
 
             try
             {
-                log.WriteLine(message);
+                log.WriteLine();
+            }
+            catch
+            {
+            }
+
+            log.Close();
+        }
+
+        /// <summary>
+        /// Save information to log
+        /// </summary>
+        /// <param name="message"></param>
+        public static void SaveToLog(string message, ESaveLogCategory category)
+        {
+            StreamWriter log = !File.Exists(PathToLog) ? new StreamWriter(PathToLog) : File.AppendText(PathToLog);
+
+            try
+            {
+                log.WriteLine(String.Format("{0} -> {1} -> {2}", category, DateTime.Now, message));
             }
             catch
             {
@@ -375,7 +420,10 @@ namespace backupmsoutlook.Library
                 if (File.Exists(path))
                     return true;
                 else
+                {
+                    SaveToLog(String.Format("Pst file read from registry: \"{0}\" doesn't exist on disk or is unavailable, skip add file to backup", path), ESaveLogCategory.WARNING);
                     return false;
+                }
             }
             catch
             {
@@ -404,9 +452,11 @@ namespace backupmsoutlook.Library
 
             if (listPst.Count > 1)
                 PathToDefaultPst = listPst[listPst.Count - 1];
+            if (listPst.Count == 1)
+                PathToDefaultPst = listPst[0];
             else
             {
-                SaveToLog(String.Format("{0} List Pst files to backup is empthy, nothing to backup", DateTime.Now));
+                SaveToLog("List Pst files to backup is empty, nothing to backup", ESaveLogCategory.WARNING);
                 return listHobocopyParametrs;
             }
 
@@ -417,7 +467,7 @@ namespace backupmsoutlook.Library
                 else
                     paths += oPath;
 
-            SaveToLog(String.Format("{0} Read MS Outlook paths to stores:{1}{2}", DateTime.Now, Environment.NewLine, paths));
+            SaveToLog(String.Format("Read list MS Outlook paths to stores, full list files to backup:{0}{1}", Environment.NewLine, "        " + paths), ESaveLogCategory.INFO);
 
             foreach (string oCommand in listPst)
             {
