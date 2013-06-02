@@ -156,7 +156,7 @@ namespace backupmsoutlook.Library
             }
             catch (Exception ex)
             {
-                SaveToLog(String.Format("Error durring read pst file - Outlook 2007 or newest\nDetail:\n{0}", ex.Message), ESaveLogCategory.ERROR);
+                SaveToLog(String.Format("Error durring read pst file - Outlook 2007 or newest Detail: {0}", ex.Message), ESaveLogCategory.ERROR);
             }
 
             return listToPst;
@@ -452,7 +452,7 @@ namespace backupmsoutlook.Library
 
             if (listPst.Count > 1)
                 PathToDefaultPst = listPst[listPst.Count - 1];
-            if (listPst.Count == 1)
+            else if (listPst.Count == 1)
                 PathToDefaultPst = listPst[0];
             else
             {
