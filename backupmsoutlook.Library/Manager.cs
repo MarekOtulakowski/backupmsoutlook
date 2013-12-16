@@ -22,6 +22,7 @@ namespace backupmsoutlook.Library
         public static bool AddingTimestampForPstFiles { get; set; }
         private static string PathToDefaultPst { get; set; }
         public static bool CopyMSOutlookRegistrySettings { get; set; }
+        private static int noVersion = 0;
         #endregion
 
         #region PublicFunction
@@ -40,114 +41,156 @@ namespace backupmsoutlook.Library
                 string pathToOutlook = string.Empty;
                 pathToOutlook = (string)regVersionOutlook.GetValue("Path");
                 pathToOutlook = pathToOutlook + "OUTLOOK.EXE";
-                int noVersion = GetMajorVersion(pathToOutlook);
+                noVersion = GetMajorVersion(pathToOutlook);
 
-                //get paths to archive actually using
-                using (RegistryKey reg = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Windows NT").OpenSubKey("CurrentVersion").OpenSubKey("Windows Messaging Subsystem").OpenSubKey("Profiles"))
+                if (noVersion < 15) //< Outlook 2013
                 {
-                    string defaultProfile = (string)reg.GetValue("DefaultProfile");
-                    if (string.IsNullOrEmpty(defaultProfile))
-                        defaultProfile = "Outlook";
-
-                    using (RegistryKey regInDefaultProfile = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Windows NT").OpenSubKey("CurrentVersion").OpenSubKey("Windows Messaging Subsystem").OpenSubKey("Profiles").OpenSubKey(defaultProfile))
+                    //get paths to archive actually using
+                    using (RegistryKey reg = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Windows NT").OpenSubKey("CurrentVersion").OpenSubKey("Windows Messaging Subsystem").OpenSubKey("Profiles"))
                     {
-                        string[] tabAllSubKeyNames = regInDefaultProfile.GetSubKeyNames();
-                        for (int i = 0; i < tabAllSubKeyNames.Length; i++)
+                        string defaultProfile = (string)reg.GetValue("DefaultProfile");
+                        if (string.IsNullOrEmpty(defaultProfile))
+                            defaultProfile = "Outlook";
+
+                        using (RegistryKey regInDefaultProfile = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Windows NT").OpenSubKey("CurrentVersion").OpenSubKey("Windows Messaging Subsystem").OpenSubKey("Profiles").OpenSubKey(defaultProfile))
                         {
-                            //add all actual using archive without default pst
-                            using (RegistryKey regAdditionalPst = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Windows NT").OpenSubKey("CurrentVersion").OpenSubKey("Windows Messaging Subsystem").OpenSubKey("Profiles").OpenSubKey(defaultProfile).OpenSubKey(tabAllSubKeyNames[i]))
+                            string[] tabAllSubKeyNames = regInDefaultProfile.GetSubKeyNames();
+                            for (int i = 0; i < tabAllSubKeyNames.Length; i++)
                             {
-                                byte[] bytes = (byte[])regAdditionalPst.GetValue("01020fff");
-                                if (bytes != null)
+                                //add all actual using archive without default pst
+                                using (RegistryKey regAdditionalPst = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Windows NT").OpenSubKey("CurrentVersion").OpenSubKey("Windows Messaging Subsystem").OpenSubKey("Profiles").OpenSubKey(defaultProfile).OpenSubKey(tabAllSubKeyNames[i]))
                                 {
-                                    if (noVersion < 13)
+                                    byte[] bytes = (byte[])regAdditionalPst.GetValue("01020fff");
+                                    if (bytes != null)
                                     {
-                                        //for MS Outlook 2003, 2007
-                                        string output = Encoding.Unicode.GetString(bytes, 12, bytes.Length - 12);
-                                        output = output.Substring(21, output.Length - 22);
-                                        byte[] bytes2 = (byte[])regAdditionalPst.GetValue("001f3d09");
-                                        string output2;
-                                        output2 = Encoding.Unicode.GetString(bytes2);
-                                        if (!string.IsNullOrEmpty(output2))
+                                        if (noVersion < 13)
+                                        {
+                                            //for MS Outlook 2003, 2007
+                                            string output = Encoding.Unicode.GetString(bytes, 12, bytes.Length - 12);
+                                            output = output.Substring(21, output.Length - 22);
+                                            byte[] bytes2 = (byte[])regAdditionalPst.GetValue("001f3d09");
+                                            string output2;
+                                            output2 = Encoding.Unicode.GetString(bytes2);
+                                            if (!string.IsNullOrEmpty(output2))
+                                                if (output2 == "MSPST MS\0")
+                                                {
+                                                    if (File.Exists(output))
+                                                        listToPst.Add(output);
+                                                }
+                                                else
+                                                    if (output2 == "MSUPST MS\0")
+                                                    {
+                                                        if (File.Exists(output))
+                                                            listToPst.Add(output);
+                                                    }
+                                                    else
+                                                        if (output2 == "INTERSTOR\0")
+                                                        {
+                                                            output = output.Replace("\0", "");
+                                                            if (File.Exists(output))
+                                                                listToPst.Add(output);
+                                                        }
+                                        }
+                                        else
+                                        {
+                                            //for MS Outlook 2010
+                                            byte[] bytes2 = (byte[])regAdditionalPst.GetValue("001f3d09");
+                                            string output2;
+                                            output2 = Encoding.Unicode.GetString(bytes2);
+                                            string output4;
                                             if (output2 == "MSPST MS\0")
                                             {
-                                                if (FileExists(output))
-                                                    listToPst.Add(output);
+                                                output4 = Encoding.Unicode.GetString(bytes, 12, bytes.Length - 12);
+                                                output4 = output4.Substring(21, output4.Length - 22);
+                                                if (File.Exists(output4))
+                                                    listToPst.Add(output4);
                                             }
                                             else
                                                 if (output2 == "MSUPST MS\0")
                                                 {
-                                                    if (FileExists(output))
-                                                        listToPst.Add(output);
+                                                    output4 = Encoding.Unicode.GetString(bytes, 12, bytes.Length - 12);
+                                                    output4 = output4.Substring(21, output4.Length - 22);
+                                                    if (File.Exists(output4))
+                                                        listToPst.Add(output4);
                                                 }
                                                 else
                                                     if (output2 == "INTERSTOR\0")
                                                     {
-                                                        output = output.Replace("\0", "");
-                                                        if (FileExists(output))
-                                                            listToPst.Add(output);
+                                                        output4 = Encoding.Unicode.GetString(bytes, 12, bytes.Length - 12);
+                                                        output4 = output4.Substring(23, output4.Length - 24);
+                                                        if (File.Exists(output4))
+                                                            listToPst.Add(output4);
                                                     }
-                                    }
-                                    else
-                                    {
-                                        //for MS Outlook 2010
-                                        byte[] bytes2 = (byte[])regAdditionalPst.GetValue("001f3d09");
-                                        string output2;
-                                        output2 = Encoding.Unicode.GetString(bytes2);
-                                        string output4;
-                                        if (output2 == "MSPST MS\0")
-                                        {
-                                            output4 = Encoding.Unicode.GetString(bytes, 12, bytes.Length - 12);
-                                            output4 = output4.Substring(21, output4.Length - 22);
-                                            if (FileExists(output4))
-                                                listToPst.Add(output4);
                                         }
-                                        else
-                                            if (output2 == "MSUPST MS\0")
-                                            {
-                                                output4 = Encoding.Unicode.GetString(bytes, 12, bytes.Length - 12);
-                                                output4 = output4.Substring(21, output4.Length - 22);
-                                                if (FileExists(output4))
-                                                    listToPst.Add(output4);
-                                            }
-                                            else
-                                                if (output2 == "INTERSTOR\0")
-                                                {
-                                                    output4 = Encoding.Unicode.GetString(bytes, 12, bytes.Length - 12);
-                                                    output4 = output4.Substring(23, output4.Length - 24);
-                                                    if (FileExists(output4))
-                                                        listToPst.Add(output4);
-                                                }
                                     }
                                 }
-                            }
 
-                            //add main Outlook profile
-                            using (RegistryKey regDefaultPst = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Windows NT").OpenSubKey("CurrentVersion").OpenSubKey("Windows Messaging Subsystem").OpenSubKey("Profiles").OpenSubKey(defaultProfile).OpenSubKey(tabAllSubKeyNames[i]))
-                            {
-                                byte[] bytes3 = (byte[])regDefaultPst.GetValue("1102039b");
-                                if (bytes3 != null)
+                                //add main Outlook profile
+                                using (RegistryKey regDefaultPst = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Windows NT").OpenSubKey("CurrentVersion").OpenSubKey("Windows Messaging Subsystem").OpenSubKey("Profiles").OpenSubKey(defaultProfile).OpenSubKey(tabAllSubKeyNames[i]))
                                 {
-                                    string output3 = Encoding.Unicode.GetString(bytes3, 12, bytes3.Length - 12);
-                                    output3 = output3.Substring(27, output3.Length - 29);
-                                    if (noVersion < 12)
-                                        //for MS Outlook 2003
-                                        if (FileExists(output3))
-                                            listToPst.Add(output3);
-                                        else
-                                            if (noVersion < 13)
+                                    byte[] bytes3 = (byte[])regDefaultPst.GetValue("1102039b");
+                                    if (bytes3 != null)
+                                    {
+                                        string output3 = Encoding.Unicode.GetString(bytes3, 12, bytes3.Length - 12);
+                                        output3 = output3.Substring(27, output3.Length - 29);
+                                        if (noVersion < 12)
+                                            //for MS Outlook 2003
+                                            if (File.Exists(output3))
+                                                listToPst.Add(output3);
+                                            else if (noVersion < 13)
                                             {
                                                 //for MS Outlook 2007
-                                                if (FileExists(output3 + "t"))
+                                                if (File.Exists(output3 + "t"))
                                                     listToPst.Add(output3 + "t");
                                             }
                                             else
                                             {
                                                 //for MS Outlook 2010
                                                 output3 = output3.Substring(4, output3.Length - 4);
-                                                if (FileExists(output3 + "t"))
+                                                if (File.Exists(output3 + "t"))
                                                     listToPst.Add(output3 + "t");
                                             }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else //for MS Outlook 2013 and highter (not implement highter yet)
+                {
+                    using (RegistryKey reg = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Office").OpenSubKey("15.0").OpenSubKey("Outlook"))
+                    {
+                        string defaultProfile = (string)reg.GetValue("DefaultProfile");
+                        if (string.IsNullOrEmpty(defaultProfile))
+                            defaultProfile = "Outlook";
+
+                        using (RegistryKey regInDefaultProfile = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Office").OpenSubKey("15.0").OpenSubKey("Outlook").OpenSubKey("Profiles").OpenSubKey(defaultProfile))
+                        {
+                            string[] tabAllSubKeyNames = regInDefaultProfile.GetSubKeyNames();
+                            for (int i = 0; i < tabAllSubKeyNames.Length; i++)
+                            {
+                                //add all actual using archive with default pst
+                                using (RegistryKey regAdditionalPst = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Microsoft").OpenSubKey("Office").OpenSubKey("15.0").OpenSubKey("Outlook").OpenSubKey("Profiles").OpenSubKey(defaultProfile).OpenSubKey(tabAllSubKeyNames[i]))
+                                {
+                                    byte[] bytes = (byte[])regAdditionalPst.GetValue("01020fff");
+                                    if (bytes != null)
+                                    {
+                                        if (noVersion == 15)//MS Outlook 2013
+                                        {
+                                            byte[] bytes2 = (byte[])regAdditionalPst.GetValue("001f3d09");
+                                            string output2;
+                                            output2 = Encoding.Unicode.GetString(bytes2);
+                                            string output4;
+                                            if (output2 == "MSPST MS\0" ||
+                                                output2 == "MSUPST MS\0")
+                                            {
+                                                output4 = Encoding.Unicode.GetString(bytes);
+                                                output4 = output4.Substring(27, output4.Length - 28);
+                                                if (File.Exists(output4))
+                                                    listToPst.Add(output4);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -296,7 +339,22 @@ namespace backupmsoutlook.Library
         {
             try
             {
-                string fullRegPath = "\"" + @"HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows Messaging Subsystem" + "\"";
+                if (noVersion == 0)
+                {
+                    SaveToLog(String.Format("Copy registry setting isn't correclty! Detail: MS Outlook noVersion = 0"), ESaveLogCategory.ERROR);
+                    return false;
+                }
+
+                string fullRegPath;
+                if (noVersion < 15)
+                {
+                    fullRegPath = "\"" + @"HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows Messaging Subsystem" + "\"";
+                }
+                else
+                {
+                    fullRegPath = "\"" + @"HKEY_CURRENT_USER\Software\Microsoft\Office\15.0\Outlook" + "\"";
+                }
+
                 string command = @"/E " + pathToRegFile + " " + fullRegPath;
                 var psiRegistry = new ProcessStartInfo();
                 psiRegistry.FileName = "regedit.exe";

@@ -2,3 +2,8 @@ C:\projects\backupmsoutlook\backupmsoutlook.Library\bin\Debug\backupmsoutlook.Li
 C:\projects\backupmsoutlook\backupmsoutlook.Library\bin\Debug\backupmsoutlook.Library.pdb
 C:\projects\backupmsoutlook\backupmsoutlook.Library\obj\Debug\backupmsoutlook.Library.dll
 C:\projects\backupmsoutlook\backupmsoutlook.Library\obj\Debug\backupmsoutlook.Library.pdb
+C:\projects\VS2010\backupmsoutlook\backupmsoutlook.Library\bin\Debug\backupmsoutlook.Library.dll
+C:\projects\VS2010\backupmsoutlook\backupmsoutlook.Library\bin\Debug\backupmsoutlook.Library.pdb
+C:\projects\VS2010\backupmsoutlook\backupmsoutlook.Library\obj\Debug\backupmsoutlook.Library.csprojResolveAssemblyReference.cache
+C:\projects\VS2010\backupmsoutlook\backupmsoutlook.Library\obj\Debug\backupmsoutlook.Library.dll
+C:\projects\VS2010\backupmsoutlook\backupmsoutlook.Library\obj\Debug\backupmsoutlook.Library.pdb

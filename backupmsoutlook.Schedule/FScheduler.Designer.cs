@@ -196,7 +196,7 @@
             this.Controls.Add(this.B_addSchedule);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             //this.Name = "FScheduler";
-            this.Text = "backupmsoutlook scheduler v.1.2";
+            this.Text = "backupmsoutlook scheduler v.1.3";
             this.Load += new System.EventHandler(this.F_MainSchedule_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGV_taskBackumsoutlook)).EndInit();
             this.ResumeLayout(false);
