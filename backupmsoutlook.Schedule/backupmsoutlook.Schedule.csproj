@@ -10,9 +10,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>backupmsoutlook.Schedule</RootNamespace>
     <AssemblyName>backupmsoutlook.Schedule</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -58,10 +57,25 @@
   <PropertyGroup>
     <StartupObject>backupmsoutlook.Schedule.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>1DAA2C843F06B5BB65D43415DD9288F0C8FB82D3</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestTimestampUrl>http://timestamp.verisign.com/scripts/timstamp.dll</ManifestTimestampUrl>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Sign\backupmsoutlook.schedule.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Win32.TaskScheduler, Version=1.7.4273.24968, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Win32.TaskScheduler, Version=2.3.1.37614, Culture=neutral, PublicKeyToken=0d013ddd5178a2ae, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Microsoft.Win32.TaskScheduler.dll</HintPath>
+      <HintPath>Libraries\Microsoft.Win32.TaskScheduler.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -98,15 +112,6 @@
       <DependentUpon>F_AddSchedule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -118,6 +123,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Sign\backupmsoutlook.schedule.snk" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -137,21 +143,26 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Libraries\Microsoft.Win32.TaskScheduler.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Microsoft.Win32.TaskScheduler.XML" />
+    <Content Include="Schedule.ico" />
+    <Content Include="Setup\innoSetup-script.iss" />
+    <Content Include="Setup\Schedule.ico" />
+    <Content Include="Setup\SetupIcon.ico" />
+    <Content Include="Setup\Uninstaller.ico" />
+    <Content Include="Sign\AboutSign.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\backupmsoutlook.Console\backupmsoutlook.Console.csproj">
-      <Project>{C04A91C6-7CAE-4309-A0A9-056457A32C98}</Project>
+      <Project>{c04a91c6-7cae-4309-a0a9-056457a32c98}</Project>
       <Name>backupmsoutlook.Console</Name>
     </ProjectReference>
     <ProjectReference Include="..\backupmsoutlook.Library\backupmsoutlook.Library.csproj">
-      <Project>{661B6BBF-C89D-4CC1-87DB-0E2DEDCFAC42}</Project>
+      <Project>{661b6bbf-c89d-4cc1-87db-0e2dedcfac42}</Project>
       <Name>backupmsoutlook.Library</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Schedule.ico" />
-    <Content Include="setup\innoSetup-script.iss" />
-    <Content Include="setup\Schedule.ico" />
-    <Content Include="setup\SetupIcon.ico" />
-    <Content Include="setup\Uninstaller.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

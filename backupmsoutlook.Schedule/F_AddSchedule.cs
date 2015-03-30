@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.DirectoryServices.AccountManagement;
+using System.Reflection;
 
 namespace backupmsoutlook.Schedule
 {
@@ -66,7 +67,8 @@ namespace backupmsoutlook.Schedule
             CB_scheduleType.Enabled = false;
             NUD_intervalSchedule.Enabled = false;
 
-            TB_taskDescription.Text = "Task copy all using pst file from Microsoft Outlook default profile" + Environment.NewLine + "This task using program backupmsoutlook v.1.3";
+            Version version = Assembly.GetEntryAssembly().GetName().Version;
+            TB_taskDescription.Text = "Task copy all using pst file from Microsoft Outlook default profile" + Environment.NewLine + "This task using program backupmsoutlook v." + version.ToString();
 
             NUD_hour.Value = DateTime.Now.Hour;
             NUD_minute.Value = DateTime.Now.AddMinutes(5).Minute;

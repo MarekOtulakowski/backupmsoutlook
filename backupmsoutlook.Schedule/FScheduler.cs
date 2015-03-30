@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Microsoft.Win32.TaskScheduler;
 using System.Configuration;
 using System.IO;
+using Microsoft.Win32.TaskScheduler;
+using System.Reflection;
 
 namespace backupmsoutlook.Schedule
 {
@@ -13,6 +14,9 @@ namespace backupmsoutlook.Schedule
         public FScheduler()
         {
             InitializeComponent();
+
+            Version version = Assembly.GetEntryAssembly().GetName().Version;
+            this.Text = this.Text + version.ToString();
         }
 
         private void B_addSchedule_Click(object sender, EventArgs e)
@@ -83,7 +87,7 @@ namespace backupmsoutlook.Schedule
                     {
                         if (scheduleType == "hour(s)")
                         {
-                            using (var tt = new TimeTrigger() { StartBoundary = startTask, Enabled = true })
+                            using (var tt = new Microsoft.Win32.TaskScheduler.TimeTrigger() { StartBoundary = startTask, Enabled = true })
                             {
                                 tt.Repetition.Interval = TimeSpan.FromHours(1);
                                 td.Triggers.Add(tt);
@@ -92,21 +96,21 @@ namespace backupmsoutlook.Schedule
                         else
                             if (scheduleType == "day(s)")
                             {
-                                using (DailyTrigger dt = new DailyTrigger() { StartBoundary = startTask, Enabled = true, DaysInterval = (short)intervalCout })
+                                using (Microsoft.Win32.TaskScheduler.DailyTrigger dt = new Microsoft.Win32.TaskScheduler.DailyTrigger() { StartBoundary = startTask, Enabled = true, DaysInterval = (short)intervalCout })
                                 {
                                     td.Triggers.Add(dt);
                                 }
                             }
                             else
                                 if (scheduleType == "week(s)")
-                                    using (var wt = new WeeklyTrigger() { StartBoundary = startTask, Enabled = true, WeeksInterval = (short)intervalCout })
+                                    using (var wt = new Microsoft.Win32.TaskScheduler.WeeklyTrigger() { StartBoundary = startTask, Enabled = true, WeeksInterval = (short)intervalCout })
                                     {
                                         td.Triggers.Add(wt);
                                     }
                     }
                     else
                     {
-                        var tt = new TimeTrigger() 
+                        var tt = new Microsoft.Win32.TaskScheduler.TimeTrigger() 
                         { 
                             StartBoundary = startTask,
                             EndBoundary = startTask.AddHours(12), //12 hours limit execution
@@ -117,7 +121,7 @@ namespace backupmsoutlook.Schedule
 
                     //settings
                     td.Settings.Hidden = true;
-                    td.Settings.MultipleInstances = TaskInstancesPolicy.IgnoreNew;
+                    td.Settings.MultipleInstances = Microsoft.Win32.TaskScheduler.TaskInstancesPolicy.IgnoreNew;
                     td.Settings.DisallowStartIfOnBatteries = true;
                     td.Settings.StopIfGoingOnBatteries = true;
                     td.Settings.AllowHardTerminate = true;
@@ -144,13 +148,13 @@ namespace backupmsoutlook.Schedule
 
                     if (usePermission)
                     {
-                        td.Principal.LogonType = TaskLogonType.Password;
+                        td.Principal.LogonType = Microsoft.Win32.TaskScheduler.TaskLogonType.Password;
                         ts.RootFolder.RegisterTaskDefinition(taskName,
                         td,
-                        TaskCreation.CreateOrUpdate,
+                        Microsoft.Win32.TaskScheduler.TaskCreation.CreateOrUpdate,
                         fullUserName,
                         password,
-                        TaskLogonType.Password,
+                        Microsoft.Win32.TaskScheduler.TaskLogonType.Password,
                         null);
                     }
                     else
@@ -196,9 +200,9 @@ namespace backupmsoutlook.Schedule
         {
             bool result = false;
 
-            using (TaskService ts = new TaskService())
+            using (Microsoft.Win32.TaskScheduler.TaskService ts = new Microsoft.Win32.TaskScheduler.TaskService())
             {
-                using (TaskFolder taskFolder = ts.GetFolder(@"\"))
+                using (Microsoft.Win32.TaskScheduler.TaskFolder taskFolder = ts.GetFolder(@"\"))
                 {
                     foreach (Task t in taskFolder.Tasks)
                     {
@@ -217,9 +221,9 @@ namespace backupmsoutlook.Schedule
         {
             DGV_taskBackumsoutlook.Rows.Clear();
 
-            using (TaskService ts = new TaskService())
+            using (Microsoft.Win32.TaskScheduler.TaskService ts = new Microsoft.Win32.TaskScheduler.TaskService())
             {
-                using (TaskFolder taskFolder = ts.GetFolder(@"\"))
+                using (Microsoft.Win32.TaskScheduler.TaskFolder taskFolder = ts.GetFolder(@"\"))
                 {
                     foreach (Task t in taskFolder.Tasks)
                     {
@@ -269,7 +273,7 @@ namespace backupmsoutlook.Schedule
 
                         if (dr == System.Windows.Forms.DialogResult.Yes)
                         {
-                            TaskService ts = new TaskService();
+                            Microsoft.Win32.TaskScheduler.TaskService ts = new TaskService();
                             try
                             {
                                 using (TaskFolder taskFolder = ts.GetFolder(@"\"))

@@ -122,7 +122,7 @@
             this.Name.HeaderText = "name";
             this.Name.Name = "Name";
             this.Name.ReadOnly = true;
-            this.Name.Width = 58;
+            this.Name.Width = 56;
             // 
             // state
             // 
@@ -132,7 +132,7 @@
             this.state.HeaderText = "State";
             this.state.Name = "state";
             this.state.ReadOnly = true;
-            this.state.Width = 57;
+            this.state.Width = 55;
             // 
             // execution
             // 
@@ -140,7 +140,7 @@
             this.execution.HeaderText = "Execution";
             this.execution.Name = "execution";
             this.execution.ReadOnly = true;
-            this.execution.Width = 79;
+            this.execution.Width = 77;
             // 
             // timeNextRun
             // 
@@ -148,7 +148,7 @@
             this.timeNextRun.HeaderText = "Time Next Run";
             this.timeNextRun.Name = "timeNextRun";
             this.timeNextRun.ReadOnly = true;
-            this.timeNextRun.Width = 103;
+            this.timeNextRun.Width = 101;
             // 
             // timeLastRun
             // 
@@ -156,7 +156,7 @@
             this.timeLastRun.HeaderText = "Time Last Run";
             this.timeLastRun.Name = "timeLastRun";
             this.timeLastRun.ReadOnly = true;
-            this.timeLastRun.Width = 101;
+            this.timeLastRun.Width = 99;
             // 
             // resultLastExecution
             // 
@@ -166,7 +166,7 @@
             this.resultLastExecution.HeaderText = "Result Last Execution";
             this.resultLastExecution.Name = "resultLastExecution";
             this.resultLastExecution.ReadOnly = true;
-            this.resultLastExecution.Width = 135;
+            this.resultLastExecution.Width = 133;
             // 
             // author
             // 
@@ -174,7 +174,7 @@
             this.author.HeaderText = "Author";
             this.author.Name = "author";
             this.author.ReadOnly = true;
-            this.author.Width = 63;
+            this.author.Width = 61;
             // 
             // createTime
             // 
@@ -182,7 +182,7 @@
             this.createTime.HeaderText = "Create time";
             this.createTime.Name = "createTime";
             this.createTime.ReadOnly = true;
-            this.createTime.Width = 85;
+            this.createTime.Width = 83;
             // 
             // FScheduler
             // 
@@ -195,8 +195,7 @@
             this.Controls.Add(this.B_advancedEdit);
             this.Controls.Add(this.B_addSchedule);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            //this.Name = "FScheduler";
-            this.Text = "backupmsoutlook scheduler v.1.3";
+            this.Text = "backupmsoutlook scheduler v.";
             this.Load += new System.EventHandler(this.F_MainSchedule_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGV_taskBackumsoutlook)).EndInit();
             this.ResumeLayout(false);

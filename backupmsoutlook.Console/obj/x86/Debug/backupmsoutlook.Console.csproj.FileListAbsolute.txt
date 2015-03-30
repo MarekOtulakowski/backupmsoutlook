@@ -14,3 +14,11 @@ C:\projects\VS2010\backupmsoutlook\backupmsoutlook.Console\bin\Debug\backupmsout
 C:\projects\VS2010\backupmsoutlook\backupmsoutlook.Console\obj\x86\Debug\backupmsoutlook.Console.csprojResolveAssemblyReference.cache
 C:\projects\VS2010\backupmsoutlook\backupmsoutlook.Console\obj\x86\Debug\backupmsoutlook.exe
 C:\projects\VS2010\backupmsoutlook\backupmsoutlook.Console\obj\x86\Debug\backupmsoutlook.pdb
+C:\Users\Marek\Documents\GitHub\CodeGoogle\backupmsoutlook\backupmsoutlook.Console\bin\Debug\backupmsoutlook.exe.config
+C:\Users\Marek\Documents\GitHub\CodeGoogle\backupmsoutlook\backupmsoutlook.Console\bin\Debug\backupmsoutlook.exe
+C:\Users\Marek\Documents\GitHub\CodeGoogle\backupmsoutlook\backupmsoutlook.Console\bin\Debug\backupmsoutlook.pdb
+C:\Users\Marek\Documents\GitHub\CodeGoogle\backupmsoutlook\backupmsoutlook.Console\bin\Debug\backupmsoutlook.Library.dll
+C:\Users\Marek\Documents\GitHub\CodeGoogle\backupmsoutlook\backupmsoutlook.Console\bin\Debug\backupmsoutlook.Library.pdb
+C:\Users\Marek\Documents\GitHub\CodeGoogle\backupmsoutlook\backupmsoutlook.Console\obj\x86\Debug\backupmsoutlook.Console.csprojResolveAssemblyReference.cache
+C:\Users\Marek\Documents\GitHub\CodeGoogle\backupmsoutlook\backupmsoutlook.Console\obj\x86\Debug\backupmsoutlook.exe
+C:\Users\Marek\Documents\GitHub\CodeGoogle\backupmsoutlook\backupmsoutlook.Console\obj\x86\Debug\backupmsoutlook.pdb
