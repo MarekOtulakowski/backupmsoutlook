@@ -3,5 +3,5 @@ Console program to copy all active (usage) pst files from default Microsoft Outl
 * v1.3.0.0 last version from code.google.com with source, adding support copy pst file to MS Outlook 2013, imported from old repository code.google.com
 * v1.3.1.0 signing OpenSource Developer certificate, upgrade dll Microsoft.w32.TaskScheduler.dll, upgrade to .NET 4.0 Client Profile
 
-# Latest releases
+# Download releases
 https://github.com/MarekOtulakowski/backupmsoutlook/releases
